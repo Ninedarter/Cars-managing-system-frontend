@@ -1,0 +1,140 @@
+<!-- side-bar begin -->
+<div class="container-fluid">
+  <div class="row flex-nowrap">
+    <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
+            <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+                <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                  <span class="text-primary fs-3 ms-2 fw-bolder">car</span><span class="fw-thin text-300 fs-3">Xpert</span>
+                </a>
+                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+                  
+                    <li>
+                        <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                          <button type="button" class="btn btn-primary btn-block">
+                            <i class="fas fa-dollar-sign">  Yearly expenses</i>
+                          </button>
+                          </a>
+                          <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                          <button type="button" class="btn btn-primary btn-block ">
+                            <i class="fas fa-chart-bar">    Statistics      </i>
+                          </button>
+                        </a>
+                    </li>
+                </ul>
+                <hr>
+                <button type="button" class="btn btn-danger">
+                  <i class="fa fa-sign-out" aria-hidden="true"></i> Sign Out
+                </button>
+            </div>
+        </div>
+        <!-- side-bar close -->
+    <div class="col">
+      <table id="car-history-table" class="table table-striped">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Repair</th>
+            <th>Price(€)</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let maintenance of maintenances">
+            <td>{{maintenance.date}}</td>
+            <td>{{maintenance.name}}</td>
+            <td>{{maintenance.price}}</td>
+            <td> <button class="btn btn-success" (click)="showModal(maintenance) " data-bs-toggle="modal" data-bs-target="#myModal2">Edit</button> </td>
+            <td> <button class="btn btn-danger" (click)="deleteSelectedMaintenance(maintenance)">DELETE</button> </td>
+             <!-- modal end -->
+          </tr>
+
+        </tbody>
+        <tfoot>
+          <tr>
+            <td></td>
+            <td><strong>Total:</strong></td>
+            
+            <td>{{totalPrice}}</td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tfoot>
+      </table>
+      <button type="button" class="btn btn-primary addNewButton" data-bs-toggle="modal" data-bs-target="#myModal">Add new</button>
+    </div>
+  </div>
+</div>
+
+<!-- modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content bg-dark text-white">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add new maintenance</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body  white-txt">
+        <form #addForm="ngForm" (ngSubmit)="addNewMaintenance(addForm)" >
+          <div class="mb-3 ">
+            <label for="date" class="form-label white-txt ">Date</label>
+            <input type="date" class="form-control " id="date" name="date" [(ngModel)]="maintenance.date">
+          </div>
+          <div class="mb-3">
+            <label for="name" class="form-label white-txt">Name of Repair</label>
+            <input type="text" class="form-control" id="name" name="name" [(ngModel)]="maintenance.name">
+          </div>
+          <div class="mb-3">
+            <label for="price" class="form-label white-txt">Cost</label>
+            <input type="number" class="form-control" id="price" name="price" [(ngModel)]="maintenance.price">
+          </div>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+   
+        <button type="submit" class="btn btn-primary" (click)="addNewMaintenance(addForm)" data-bs-dismiss="modal">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Form section -->
+<div *ngIf="isVisible">
+  
+  <!-- Modal -->
+  <div class="modal fade" id="myModal2" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content bg-dark text-white">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel white-txt">Edit maintenance info</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form #addForm2="ngForm"  >
+            <div class="mb-3">
+              <label for="date" class="form-label white-txt">Date</label>
+              <input type="date" class="form-control" id="date" name="date" [(ngModel)]="maintenance.date">
+            </div>
+            <div class="mb-3">
+              <label for="name" class="form-label white-txt">Name of Repair</label>
+              <input type="text" class="form-control" id="name" name="name"  [(ngModel)]="maintenance.name">
+            </div>
+            <div class="mb-3">
+              <label for="price" class="form-label white-txt white-txt">Cost</label>
+              <input type="number" class="form-control" id="price" name="price"  [(ngModel)]="maintenance.price">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" (click)="updateMaintenance(addForm2)">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  <!-- modal end -->
+ 

@@ -1,0 +1,40 @@
+<div class="container-fluid">
+    <div class="row flex-nowrap">
+      <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
+        <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+            <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+              <span class="text-primary fs-3 ms-2 fw-bolder">car</span><span class="fw-thin text-300 fs-3">Xpert</span>
+            </a>
+            <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+               
+                <li>
+                    <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                      <button type="button" class="btn btn-primary btn-block">
+                        <i class="fas fa-dollar-sign">  Yearly expenses</i>
+                      </button>
+                      </a>
+                      <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                      <button type="button" class="btn btn-primary btn-block ">
+                        <i class="fas fa-chart-bar">    Statistics      </i>
+                      </button>
+                    </a>
+                </li>
+            </ul>
+            <hr>
+            <button type="button" class="btn btn-danger">
+              <i class="fa fa-sign-out" aria-hidden="true"></i> Sign Out
+            </button>
+        </div>
+    </div>
+      <div class="col">
+  
+  
+        
+        <button (click)="createAllChart()">Create chart</button>
+
+
+
+  <canvas #chartCanvas></canvas>
+  
+  
+  
