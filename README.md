@@ -17,7 +17,7 @@ The Car Management System offers the following features:
 - **Car Information Updates**: Update essential car information such as mileage, technical expiration dates, and insurance dates. Maintain accurate records for your vehicles.
 
 ## Getting Started
-(**)Before running the frontend, you must start the backend application. Ensure you have the backend up and running before proceeding with the frontend setup.
+**Before running the frontend, you must start the backend application. Ensure you have the backend up and running before proceeding with the frontend setup.**
 
 To set up the frontend locally, follow these steps:
 
