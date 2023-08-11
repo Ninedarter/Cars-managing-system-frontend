@@ -1,27 +1,68 @@
-# CarsManagingSystem
+# Car Management System - Frontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.0.1.
+Welcome to the frontend repository of the Car Management System. This repository contains the Angular-based user interface, allowing users to interact with the Car Management System. The frontend communicates with the https://github.com/Ninedarter/Cars-managing-system-backend for data management.
 
-## Development server
+## Features
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+The Car Management System offers the following features:
 
-## Code scaffolding
+- **User Registration**: Create a personalized account to access the system, ensuring privacy and security.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- **Car Registration**: Easily add new cars to the system, providing crucial details like make, model, year, and initial mileage.
 
-## Build
+- **Expense Tracking**: Keep a comprehensive record of expenses related to your vehicles, including maintenance costs and fuel expenditures. Stay on top of your budget and identify areas for optimization.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- **Monthly Expense Charts**: Visualize your car expenses with interactive charts that display monthly spending patterns. This feature helps you better understand your financial outlays.
 
-## Running unit tests
+- **Car Information Updates**: Update essential car information such as mileage, technical expiration dates, and insurance dates. Maintain accurate records for your vehicles.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Getting Started
+**Before running the frontend, you must start the backend application. Ensure you have the backend up and running before proceeding with the frontend setup.**
 
-## Running end-to-end tests
+To set up the frontend locally, follow these steps:
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+1. **Clone the Frontend Repository**: Clone this frontend repository to your local machine using `git clone`.
 
-## Further help
+2. **Install Dependencies**:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+   - Ensure you have Node.js installed. If not, download and install it from [nodejs.org](https://nodejs.org/).
+   - Open a terminal in the project directory.
+   - Run the following command to install project dependencies:
+
+     ```
+     npm install
+     ```
+
+3. **Download Angular**:
+
+   - If you don't have Angular installed, you can install it globally using the following command:
+
+     ```
+     npm install -g @angular/cli
+     ```
+
+
+4. **Run the Frontend Application**:
+
+   - Use the following command to start the development server:
+
+     ```
+     ng serve
+     ```
+
+   - Open a web browser and navigate to `http://localhost:4200/` to access the frontend.
+
+## Usage
+
+1. Register a User : Create your user account within the application.
+There is sample user with login  details :  
+ email: test@mail.com
+ password: test
+
+2. Add Cars: Start adding your vehicles to the system, providing all the required information.
+
+3. Track Expenses: Log maintenance and fuel expenses for each car, enabling accurate expense monitoring.
+
+4. View Charts: Explore the monthly expense charts to gain insights into your spending habits.
+
+5. Update Car Info: Periodically update car information as mileage, technical and insurance expiration dates to reflect the latest details accurately.
