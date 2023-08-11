@@ -16,7 +16,7 @@ import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
 
 import { Observable, filter } from "rxjs";
 
-export interface Maintenance {
+export interface Expense {
   id?: any;
   name: string;
   price: number;
@@ -33,8 +33,8 @@ export interface Maintenance {
 export class ExplotationCostsComponent implements OnInit {
   vinCode: any = "";
   totalPrice: number = 0;
-  maintenances: Maintenance[] = [];
-  maintenance: Maintenance = {
+  expenses: Expense[] = [];
+  expense: Expense = {
     id: 0,
     name: "",
     price: 0,
@@ -53,10 +53,10 @@ export class ExplotationCostsComponent implements OnInit {
     this.route.paramMap.subscribe((params) => {
       this.vinCode = params.get("vinCode");
     });
-    this.getMaintencesByCar(this.vinCode);
+    this.getExpensesByCar(this.vinCode);
   }
 
-  public getMaintencesByCar(vinCode: string): void {
+  public getExpensesByCar(vinCode: string): void {
     const headers = new HttpHeaders().set(
       "Authorization",
       "Bearer " + localStorage.getItem("myToken")
@@ -64,14 +64,14 @@ export class ExplotationCostsComponent implements OnInit {
     const params = new HttpParams().set("vinCode", vinCode);
 
     this.httpClient
-      .get<Maintenance[]>("http://localhost:8082/maintenances/", {
+      .get<Expense[]>("http://localhost:8082/expenses/", {
         headers,
         params,
       })
       .subscribe(
         (response: any) => {
-          this.maintenances = response.maintenances;
-          this.totalPrice = this.getTotalPrice(this.maintenances);
+          this.expenses = response.expenses;
+          this.totalPrice = this.getTotalPrice(this.expenses);
         },
         (error: HttpErrorResponse) => {
           alert(error.message);
@@ -79,8 +79,8 @@ export class ExplotationCostsComponent implements OnInit {
       );
   }
 
-  public addNewMaintenance(addForm: NgForm): void {
-    this.maintenance = {
+  public addNewExpense(addForm: NgForm): void {
+    this.expense = {
       name: addForm.value.name,
       price: addForm.value.price,
       date: addForm.value.date,
@@ -93,15 +93,15 @@ export class ExplotationCostsComponent implements OnInit {
       "Bearer " + localStorage.getItem("myToken")
     );
     this.httpClient
-      .post<Maintenance[]>(
-        "http://localhost:8082/maintenances/add",
-        this.maintenance,
+      .post<Expense[]>(
+        "http://localhost:8082/expenses/add",
+        this.expense,
         { headers }
       )
       .subscribe(
         (response: any) => {
-          this.maintenances = response.maintenances;
-          this.getMaintencesByCar(this.vinCode);
+          this.expenses = response.expenses;
+          this.getExpensesByCar(this.vinCode);
         },
         (error: HttpErrorResponse) => {
           alert(error.message);
@@ -109,30 +109,30 @@ export class ExplotationCostsComponent implements OnInit {
       );
   }
 
-  public getTotalPrice(maintenances: Maintenance[]): number {
+  public getTotalPrice(expenses: Expense[]): number {
     let total: number = 0;
-    maintenances.forEach((maintenance: Maintenance) => {
-      total = total + maintenance.price;
+    expenses.forEach((expense: Expense) => {
+      total = total + expense.price;
     });
     return total;
   }
 
-  public selectedMaintenance: Maintenance | null = null;
+  public selectedExpense: Expense | null = null;
 
-  public deleteSelectedMaintenance(maintenance: Maintenance): void {
-    maintenance.vinCode = this.vinCode;
+  public deleteSelectedExpense(expense: Expense): void {
+    expense.vinCode = this.vinCode;
     const headers = new HttpHeaders().set(
       "Authorization",
       "Bearer " + localStorage.getItem("myToken")
     );
 
     this.httpClient
-      .delete("http://localhost:8082/maintenances/" + maintenance.id, {
+      .delete("http://localhost:8082/expenses/" + expense.id, {
         headers,
       })
       .subscribe(
         (response: any) => {
-          this.getMaintencesByCar(maintenance.vinCode);
+          this.getExpensesByCar(expense.vinCode);
         },
         (error: HttpErrorResponse) => {
           alert(error.message);
@@ -141,14 +141,14 @@ export class ExplotationCostsComponent implements OnInit {
   }
 
   isVisible: boolean = false;
-  public showModal(maintenance: Maintenance) {
+  public showModal(expense: Expense) {
     this.isVisible = true;
-    this.maintenance = maintenance;
+    this.expense = expense;
   }
 
-  public updateMaintenance(addForm: NgForm): void {
-    this.selectedMaintenance = {
-      id: this.maintenance.id,
+  public updateExpense(addForm: NgForm): void {
+    this.selectedExpense = {
+      id: this.expense.id,
       name: addForm.value.name,
       price: addForm.value.price,
       date: addForm.value.date,
@@ -160,30 +160,36 @@ export class ExplotationCostsComponent implements OnInit {
       "Bearer " + localStorage.getItem("myToken")
     );
     this.httpClient
-      .put<Maintenance>(
-        "http://localhost:8082/maintenances/",
-        this.selectedMaintenance,
+      .put<Expense>(
+        "http://localhost:8082/expenses/",
+        this.selectedExpense,
         { headers }
       )
       .subscribe((response: any) => {
-        this.getMaintencesByCar(this.selectedMaintenance?.vinCode);
+        this.getExpensesByCar(this.selectedExpense?.vinCode);
       });
 
     addForm.reset();
   }
 
-  public updateMaintenancesToBackend(maintenanceToUpdate: Maintenance) {
-    if (!maintenanceToUpdate) {
+  public updateExpensesToBackend(expenseToUpdate: Expense) {
+    if (!expenseToUpdate) {
       throw new Error("Vehicle object is undefined.");
     }
     const headers = new HttpHeaders().set(
       "Authorization",
       "Bearer " + localStorage.getItem("myToken")
     );
-    this.httpClient.put<Maintenance>(
-      "http://localhost:8082/maintenances/",
-      maintenanceToUpdate,
+    this.httpClient.put<Expense>(
+      "http://localhost:8082/expenses/",
+      expenseToUpdate,
       { headers }
     );
+  }
+
+
+  doLogout() {
+    localStorage.removeItem('myToken');
+    this.router.navigate(['/login']);
   }
 }

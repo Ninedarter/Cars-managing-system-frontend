@@ -93,13 +93,14 @@ export class CarsComponent {
       mileage: addForm.value.mileage,
       technicalExpirationDate: addForm.value.technicalExpirationDate,
       insuranceExpirationDate: addForm.value.insuranceExpirationDate,
-      email: this.userEmail,
+      email: localStorage.getItem("email"),
       imgUrl: addForm.value.imgUrl,
     };
-
+    console.log(this.vehicleToAdd.email, "pridedamos masinos emailas")
     this.saveVehicleToBackend(addForm.value).subscribe((response: Vehicle) => {
       this.getVehiclesFromBackEnd();
     });
+    
   }
 
   public saveVehicleToBackend(vehicleToAdd: Vehicle): Observable<Vehicle> {
@@ -110,7 +111,7 @@ export class CarsComponent {
       "Authorization",
       "Bearer " + localStorage.getItem("myToken")
     );
-    console.log(vehicleToAdd.email);
+    console.log(localStorage.getItem("email"));
     console.log(vehicleToAdd.imgUrl);
     return this.httpClient.post<Vehicle>(
       "http://localhost:8082/vehicles/add",
@@ -167,4 +168,10 @@ export class CarsComponent {
       { headers }
     );
   }
+  
+  doLogout() {
+    localStorage.removeItem('myToken');
+    this.router.navigate(['/login']);
+  }
+  
 }

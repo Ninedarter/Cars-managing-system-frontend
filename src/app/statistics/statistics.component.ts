@@ -9,7 +9,7 @@ import { HttpClient } from "@angular/common/http";
 import { Chart, registerables } from "chart.js";
 
 Chart.register(...registerables);
-export interface Maintenance {
+export interface Expense {
   id?: any;
   name: string;
   price: number;
@@ -25,8 +25,8 @@ export interface Maintenance {
 })
 export class StatisticsComponent implements OnInit {
   vinCode: any;
-  maintenances: Maintenance[] = [];
-  maintenance: Maintenance = {
+  expenses: Expense[] = [];
+  expense: Expense = {
     id: 0,
     name: "",
     price: 0,
@@ -47,19 +47,22 @@ export class StatisticsComponent implements OnInit {
     this.route.paramMap.subscribe((params) => {
       this.vinCode = params.get("vinCode");
     });
-    this.getMaintencesByCar(this.vinCode);
-    this.createAllChart();
+    this.getExpensesByCar(this.vinCode);
+    setTimeout(() => {
+      this.getExpensesByCar(this.vinCode);
+      this.createAllChart();
+    }, 100);
   }
 
   createAllChart() {
-    const monthlyTotals = this.calculateMonthlyMaintenanceCosts(
-      this.maintenances
+    const monthlyTotals = this.calculateMonthlyExpenseCosts(
+      this.expenses
     );
     this.createChart(monthlyTotals);
   }
 
-  maintenancesByCar: Maintenance[] = [];
-  public getMaintencesByCar(vinCode: string) {
+  expensesByCar: Expense[] = [];
+  public getExpensesByCar(vinCode: string) {
     const headers = new HttpHeaders().set(
       "Authorization",
       "Bearer " + localStorage.getItem("myToken")
@@ -67,13 +70,13 @@ export class StatisticsComponent implements OnInit {
     const params = new HttpParams().set("vinCode", vinCode);
 
     this.httpClient
-      .get<Maintenance[]>("http://localhost:8082/maintenances/", {
+      .get<Expense[]>("http://localhost:8082/expenses/", {
         headers,
         params,
       })
       .subscribe(
         (response: any) => {
-          this.maintenances = response.maintenances;
+          this.expenses = response.expenses;
         },
         (error: HttpErrorResponse) => {
           alert(error.message);
@@ -81,20 +84,20 @@ export class StatisticsComponent implements OnInit {
       );
   }
 
-  calculateMonthlyMaintenanceCosts(maintenances: Maintenance[]): {
+  calculateMonthlyExpenseCosts(expenses: Expense[]): {
     [month: string]: number;
   } {
     const monthlyTotals: { [month: string]: number } = {};
-    console.log("maintenances !!!", maintenances);
-    for (const maintenance of maintenances) {
-      const month = new Date(maintenance.date).getMonth() + 1;
-      const year = new Date(maintenance.date).getFullYear();
+    console.log("expensess !!!", expenses);
+    for (const expense of expenses) {
+      const month = new Date(expense.date).getMonth() + 1;
+      const year = new Date(expense.date).getFullYear();
       const key = `${year}-${month}`;
 
       if (!monthlyTotals[key]) {
-        monthlyTotals[key] = maintenance.price;
+        monthlyTotals[key] = expense.price;
       } else {
-        monthlyTotals[key] += maintenance.price;
+        monthlyTotals[key] += expense.price;
       }
     }
 
@@ -129,7 +132,7 @@ export class StatisticsComponent implements OnInit {
         labels: labels,
         datasets: [
           {
-            label: "Maintenance cost",
+            label: "monthly expenes(€)",
             data: data,
             backgroundColor: "rgba(75, 192, 192, 0.2)",
             borderColor: "rgba(75, 192, 192, 1)",
@@ -137,13 +140,34 @@ export class StatisticsComponent implements OnInit {
           },
         ],
       },
-      options: {
+      options: {   
         scales: {
           y: {
             beginAtZero: true,
+            ticks: {
+              callback: (val) => {
+                return '€' + val;
+              },
           },
         },
       },
+    },
     });
+
+  const chartContainer = canvas.parentElement;
+  if (chartContainer) {
+    const chartTitle = document.createElement("h2");
+    chartTitle.innerText = "Monthly Expenses ";
+    chartTitle.style.textAlign = "center";
+    chartTitle.style.color = "white";
+    chartContainer.insertBefore(chartTitle, chartContainer.firstChild);
   }
 }
+
+doLogout() {
+  localStorage.removeItem('myToken');
+  this.router.navigate(['/login']);
+}
+
+  }
+

@@ -7,6 +7,21 @@
     margin-left:10px;   
 }
 
-.white-txt{
+.white{
     color: white;
+}
+
+.blueBackground{
+    background-color: #223756}
+
+ .whiteBacground{
+    background-color: white;
+ }   
+
+ .blueTxt{
+    color:#06d4f8;
+ }
+
+ .margin-left{
+    margin-left:8px;
 }

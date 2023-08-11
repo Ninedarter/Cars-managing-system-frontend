@@ -7,8 +7,12 @@
                   <span class="text-primary fs-3 ms-2 fw-bolder">car</span><span class="fw-thin text-300 fs-3">Xpert</span>
                 </a>
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
-                  
                     <li>
+                      <a routerLink="/cars" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                        <button type="button" class="btn btn-primary btn-block">
+                          <i class="fa-solid fa-car black">     My cars</i>
+                        </button>
+                        </a>
                         <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
                           <button type="button" class="btn btn-primary btn-block">
                             <i class="fas fa-dollar-sign">  Yearly expenses</i>
@@ -20,11 +24,12 @@
                           </button>
                         </a>
                     </li>
+                    <li>  <button type="button" class="btn btn-danger margin-left" (click)="doLogout()"> 
+                      <i class="fa fa-sign-out" aria-hidden="true"></i> Sign Out
+                    </button>  </li>
                 </ul>
                 <hr>
-                <button type="button" class="btn btn-danger">
-                  <i class="fa fa-sign-out" aria-hidden="true"></i> Sign Out
-                </button>
+               
             </div>
         </div>
         <!-- side-bar close -->
@@ -36,27 +41,24 @@
             <th>Repair</th>
             <th>Price(€)</th>
             <th></th>
-            <th></th>
+            
           </tr>
         </thead>
-        <tbody>
-          <tr *ngFor="let maintenance of maintenances">
-            <td>{{maintenance.date}}</td>
-            <td>{{maintenance.name}}</td>
-            <td>{{maintenance.price}}</td>
-            <td> <button class="btn btn-success" (click)="showModal(maintenance) " data-bs-toggle="modal" data-bs-target="#myModal2">Edit</button> </td>
-            <td> <button class="btn btn-danger" (click)="deleteSelectedMaintenance(maintenance)">DELETE</button> </td>
-             <!-- modal end -->
+        <tbody class="blueBackground white">
+          <tr style="color:white;" *ngFor="let expense of expenses">
+            <td style="color:white;">{{expense .date}}</td>
+            <td style="color:white;">{{expense .name}}</td>
+            <td style="color:white;">{{expense .price}}</td>
+            <td> <button class="btn btn-success" (click)="showModal(expense ) " data-bs-toggle="modal" data-bs-target="#myModal2"><i class="fa-solid fa-pencil"></i></button> 
+            <button class="btn btn-danger" (click)="deleteSelectedExpense (expense )"><i class="fas fa-trash-alt"></i></button></td>
           </tr>
 
         </tbody>
-        <tfoot>
+        <tfoot class="blueTxt">
           <tr>
             <td></td>
-            <td><strong>Total:</strong></td>
-            
+            <td >Total:</td>
             <td>{{totalPrice}}</td>
-            <td></td>
             <td></td>
           </tr>
         </tfoot>
@@ -68,73 +70,73 @@
 
 <!-- modal -->
 
-<!-- Modal -->
+<!-- Add new modal start -->
 <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content bg-dark text-white">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add new maintenance</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Add new expence</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body  white-txt">
-        <form #addForm="ngForm" (ngSubmit)="addNewMaintenance(addForm)" >
-          <div class="mb-3 ">
+        <form #addForm="ngForm" (ngSubmit)="addNewExpense(addForm)" >
+          <div class="mb-3 "> 
             <label for="date" class="form-label white-txt ">Date</label>
-            <input type="date" class="form-control " id="date" name="date" [(ngModel)]="maintenance.date">
+            <input type="date" class="form-control " id="date" name="date" [(ngModel)]="expense.date">
           </div>
           <div class="mb-3">
             <label for="name" class="form-label white-txt">Name of Repair</label>
-            <input type="text" class="form-control" id="name" name="name" [(ngModel)]="maintenance.name">
+            <input type="text" class="form-control" id="name" name="name" [(ngModel)]="expense.name">
           </div>
           <div class="mb-3">
             <label for="price" class="form-label white-txt">Cost</label>
-            <input type="number" class="form-control" id="price" name="price" [(ngModel)]="maintenance.price">
+            <input type="number" class="form-control" id="price" name="price" [(ngModel)]="expense.price">
           </div>
 
         </form>
       </div>
       <div class="modal-footer">
    
-        <button type="submit" class="btn btn-primary" (click)="addNewMaintenance(addForm)" data-bs-dismiss="modal">Submit</button>
+        <button type="submit" class="btn btn-primary" (click)="addNewExpense(addForm)" data-bs-dismiss="modal">Submit</button>
       </div>
     </div>
   </div>
 </div>
+<!-- Add new modal end-->
 
-<!-- Form section -->
 <div *ngIf="isVisible">
   
-  <!-- Modal -->
+  <!-- Update expense modal start -->
   <div class="modal fade" id="myModal2" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content bg-dark text-white">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel white-txt">Edit maintenance info</h5>
+          <h5 class="modal-title" id="exampleModalLabel" >Edit expense info</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <form #addForm2="ngForm"  >
             <div class="mb-3">
               <label for="date" class="form-label white-txt">Date</label>
-              <input type="date" class="form-control" id="date" name="date" [(ngModel)]="maintenance.date">
+              <input type="date" class="form-control" id="date" name="date" [(ngModel)]="expense.date">
             </div>
             <div class="mb-3">
               <label for="name" class="form-label white-txt">Name of Repair</label>
-              <input type="text" class="form-control" id="name" name="name"  [(ngModel)]="maintenance.name">
+              <input type="text" class="form-control" id="name" name="name"  [(ngModel)]="expense.name">
             </div>
             <div class="mb-3">
               <label for="price" class="form-label white-txt white-txt">Cost</label>
-              <input type="number" class="form-control" id="price" name="price"  [(ngModel)]="maintenance.price">
+              <input type="number" class="form-control" id="price" name="price"  [(ngModel)]="expense.price">
             </div>
           </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" (click)="updateMaintenance(addForm2)">Submit</button>
+          <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" (click)="updateExpense(addForm2)">Submit</button>
         </div>
       </div>
     </div>
   </div>
 </div>
-  <!-- modal end -->
+  <!-- Update expense modal end -->
  

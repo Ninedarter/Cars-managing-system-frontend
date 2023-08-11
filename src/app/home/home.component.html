@@ -46,29 +46,25 @@
           <div class="card card-bg shadow hero-header-form">
             <div class="card-body p-4 p-xl-6">
               <h2 class="text-100 text-center">Register</h2>
-              <form class="mb-3">
+              <form class="mb-3" #addForm2="ngForm" (ngSubmit)="register(addForm2)">
                 <div class="form-floating mb-3">
-                  <input class="form-control input-box form-ensurance-header-control" id="firstName" name="firstName" type="text" placeholder="name" />
-                  <label for="firstName">Your first name</label>
+                  <input [(ngModel)]="user.firstName"class="form-control input-box form-ensurance-header-control" id="firstName" name="firstName" type="text" placeholder="name" />
+                  <label for="firstName">First name</label>
                 </div>
                 <div class="form-floating mb-3">
-                  <input class="form-control input-box form-ensurance-header-control" id="lastName" name="lastName" type="text" placeholder="name" />
-                  <label for="lastName">Your last name</label>
+                  <input [(ngModel)]="user.lastName"class="form-control input-box form-ensurance-header-control" id="lastName" name="lastName" type="text" placeholder="name" />
+                  <label for="lastName">Last name</label>
                 </div>
                 <div class="form-floating mb-3">
-                  <input class="form-control input-box form-ensurance-header-control" id="age" name="age" type="number" placeholder="name@example.com" />
-                  <label for="floatingPhone">Age</label>
-                </div>
-                <div class="form-floating mb-3">
-                  <input class="form-control input-box form-ensurance-header-control" id="email" name="email" type="text" placeholder="email" />
+                  <input  [(ngModel)]="user.email"class="form-control input-box form-ensurance-header-control" id="email" name="email" type="text" placeholder="email" />
                   <label for="email">Email address</label>
                 </div>
                 <div class="form-floating mb-3">
-                  <input class="form-control input-box form-ensurance-header-control" id="password" name="password" type="text" placeholder="email" />
+                  <input  [(ngModel)]="user.password"class="form-control input-box form-ensurance-header-control" id="password" name="password" type="text" placeholder="email" />
                   <label for="password">Password</label>
                 </div>
                 <div class="col-12 d-grid">
-                  <button class="btn btn-primary rounded-pill" type="submit">Register</button>
+                  <button class="btn btn-primary rounded-pill" type="submit" data-bs-toggle="modal" data-bs-target="#registrationSuccessModal">Register</button>
                 </div>
               </form>
             </div>
@@ -76,6 +72,28 @@
         </div>
       </div>
     </div>
+
+
+<!--REGISTRATION SUCCESS MODAL BEGIN -->
+
+    <div class="modal fade" id="registrationSuccessModal" tabindex="-1" role="dialog" aria-labelledby="registrationSuccessModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content bg-dark text-white">
+          <div class="modal-header">
+            <h5 class="modal-title text-white" id="registrationSuccessModalLabel">Registration Successful</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p>Congratulations! Your registration has been successful.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+<!--REGISTRATION SUCCESS MODAL close-->
+
     <!-- <section> register close ============================-->
   </section>
   <section id="cars">

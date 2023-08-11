@@ -1,75 +1,81 @@
 <!-- side-bar begin -->
-  <div class="container-fluid">
-    <div class="row flex-nowrap">
-      <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
-              <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
-                  <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-                    <span class="text-primary fs-3 ms-2 fw-bolder">car</span><span class="fw-thin text-300 fs-3">Xpert</span>
-                  </a>
-                  <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
-                     
-                      <li>
-                          <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
-                            <button type="button" class="btn btn-primary btn-block">
-                              <i class="fas fa-dollar-sign">  Yearly expenses</i>
-                            </button>
-                            </a>
-                            <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
-                            <button type="button" class="btn btn-primary btn-block ">
-                              <i class="fas fa-chart-bar">    Statistics      </i>
-                            </button>
+<div class="container-fluid">
+  <div class="row flex-nowrap">
+    <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
+            <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+                <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                  <span class="text-primary fs-3 ms-2 fw-bolder">car</span><span class="fw-thin text-300 fs-3">Xpert</span>
+                </a>
+                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+                  
+                    <li>
+                        <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                          <button type="button" class="btn btn-primary btn-block ml-5">
+                            <i class="fas fa-dollar-sign">  Yearly expenses</i>
+                          </button>
                           </a>
-                      </li>
-                  </ul>
-                  <hr>
-                  <button type="button" class="btn btn-danger">
-                    <i class="fa fa-sign-out" aria-hidden="true"></i> Sign Out
-                  </button>
-              </div>
-          </div>
-          <!-- side-bar close -->
-          <div class="col py-3">
-            <div class="card-group">
-
-    <div  class="card" *ngFor="let vehicle of vehicles">
-      <img src="{{vehicle.imgUrl}}" class="card-img-top" alt="asdasd">
-      <div class="card-body">
-        <h5 class="card-text">{{ vehicle.brand }} - {{ vehicle.model }}</h5>
-        <p class="card-text">Year: {{ vehicle.yearOfMade }}</p>
-        <p class="card-text">Horsepower: {{ vehicle.horsePower }}</p>
-        <p class="card-text">VIN Code: {{ vehicle.vinCode }}</p>
-        <p class="card-text">Origin Country: {{ vehicle.originCountry }}</p>
-        <p class="card-text">Mileage: {{ vehicle.mileage }}</p>
-        <p class="card-text">Technical Expiration Date: {{ vehicle.technicalExpirationDate }}</p>
-        <p class="card-text">Insurance Expiration Date: {{ vehicle.insuranceExpirationDate }}</p>
-        <p class="card-text">email adress {{ vehicle.email }}</p>
-        
-
-        <div class="nav d-flex flex-column flex-md-row align-items-start nav-tab" id="nav-tab" role="tablist" aria-orientation="vertical">
-          <a class="circle-hover-wrapper nav-link mb-lg-4 active" id="nav-car-tab" href="#!" data-bs-toggle="tab" data-bs-target="#nav-car" role="tab" aria-controls="nav-car" aria-selected="true">
-            <div class="icon-box buttonsOnCard">
-              <img class="car-insurance-icon" src="assets/img/icons/car.png" alt="..."  />
-              <img class="car-insurance-icon car-insurance-icon-hover " src="assets/img/icons/car-hover.png" alt="..." data-bs-toggle="modal" data-bs-target="#updateModal" (click)="updateForm(vehicle)"/>
+                          <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                          <button type="button" class="btn btn-primary btn-block ml-5 ">
+                            <i class="fas fa-chart-bar">    Statistics      </i>
+                          </button>
+                        </a>
+                    </li>
+                    <li>  <button type="button" class="btn btn-danger margin-left" (click)="doLogout()"> 
+                      <i class="fa fa-sign-out" aria-hidden="true"></i> Sign Out
+                    </button>  </li>
+                </ul>
+                <hr>
+               
             </div>
-          </a>
-          <a class="circle-hover-wrapper nav-link mb-lg-4" id="nav-home-tab" href="#!" data-bs-toggle="tab" data-bs-target="#nav-home" role="tab" aria-controls="nav-home" aria-selected="false">
-            <div class="icon-box buttonsOnCard">
-              <img class="car-insurance-icon" src="assets/img/icons/repair.png"alt="..." />
-              <img class="car-insurance-icon car-insurance-icon-hover" src="assets/img/icons/repair-hower.png" alt="..." (click)="navigateToExplotationComponent(vehicle.vinCode)" />
-            </div>
-          </a>
-          <a class="circle-hover-wrapper nav-link mb-lg-4" id="nav-paw-tab" href="#!" data-bs-toggle="tab" data-bs-target="#nav-paw" role="tab" aria-controls="nav-paw" aria-selected="false">
-            <div class="icon-box buttonsOnCard">
-              <img class="car-insurance-icon" src="assets/img/icons/expenses.png" alt="..." />
-              <img class="car-insurance-icon car-insurance-icon-hover" src="assets/img/icons/expenses-hover.png" alt="..."  (click)="navigateToStatisticsComponent(vehicle.vinCode)"  />
-            </div>
-          </a>
         </div>
+        <!-- side-bar close -->
+
+    <div class="col-md-9">
+      <div class="container" id="main-container">
+        <div class="row">
+          <div class="col-md-4" *ngFor="let vehicle of vehicles">
+            <div class="card mb-3">
+              <!-- Card content goes here -->
+              <img src="{{vehicle.imgUrl}}" class="card-img-top" alt="car image not found">
+              <div class="card-body">
+                <h5 class="card-title">{{ vehicle.brand }} - {{ vehicle.model }}</h5>
+                <p class="card-text">Year: {{ vehicle.yearOfMade }}</p>
+                <p class="card-text">Horsepower: {{ vehicle.horsePower }}</p>
+                <p class="card-text">VIN Code: {{ vehicle.vinCode }}</p>
+                <p class="card-text">Origin Country: {{ vehicle.originCountry }}</p>
+                <p class="card-text">Mileage(km): {{ vehicle.mileage }}</p>
+                <p class="card-text">Technical inspection valid until: {{ vehicle.technicalExpirationDate }}</p>
+                <p class="card-text">Insurance valid until: {{ vehicle.insuranceExpirationDate }}</p>
+              </div>
+              <div class="nav d-flex flex-column flex-md-row align-items-start nav-tab" id="nav-tab" role="tablist" aria-orientation="vertical">
+                <a class="circle-hover-wrapper nav-link mb-lg-4 active carButton" id="nav-car-tab" href="#!" data-bs-toggle="tab" data-bs-target="#nav-car" role="tab" aria-controls="nav-car" aria-selected="true">
+                  <div class="icon-box buttonsOnCard">
+                    <img class="car-insurance-icon " src="assets/img/icons/edit.png" alt="..."  />
+                    <img class="car-insurance-icon car-insurance-icon-hover " src="assets/img/icons/edit-hover.png" alt="..." data-bs-toggle="modal" data-bs-target="#updateModal" (click)="updateForm(vehicle)"/>
+                  </div>
+                </a>
+                <a class="circle-hover-wrapper nav-link mb-lg-4 carButton" id="nav-home-tab" href="#!" data-bs-toggle="tab" data-bs-target="#nav-home" role="tab" aria-controls="nav-home" aria-selected="false">
+                  <div class="icon-box buttonsOnCard">
+                    <img class="car-insurance-icon" src="assets/img/icons/repair.png"alt="..." />
+                    <img class="car-insurance-icon car-insurance-icon-hover" src="assets/img/icons/repair-hower.png" alt="..." (click)="navigateToExplotationComponent(vehicle.vinCode)" />
+                  </div>
+                </a>
+                <a class="circle-hover-wrapper nav-link mb-lg-4 carButton" id="nav-paw-tab" href="#!" data-bs-toggle="tab" data-bs-target="#nav-paw" role="tab" aria-controls="nav-paw" aria-selected="false">
+                  <div class="icon-box buttonsOnCard">
+                    <img class="car-insurance-icon" src="assets/img/icons/expenses.png" alt="..." />
+                    <img class="car-insurance-icon car-insurance-icon-hover" src="assets/img/icons/expenses-hover.png" alt="..."  (click)="navigateToStatisticsComponent(vehicle.vinCode)"  />
+                  </div>
+                </a>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+        <button type="button" class="btn btn-primary addNewButton" data-bs-toggle="modal" data-bs-target="#myModal" >Add new</button>
       </div>
-
-
-
-
+    </div>
+  </div>
+</div>
 
       <!-- UPDATE FORM BEGINING -->
 <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModal" aria-hidden="true">
@@ -84,7 +90,7 @@
           <form  #addForm2="ngForm" (ngSubmit)="update(addForm2)">
             
             <div>
-              <label for="mileage">Mileage:</label>
+              <label for="mileage">Mileage(km):</label>
               <input type="number" id="mileage" class="form-control" ngModel="{{vehicleToAdd?.mileage}}" name="mileage" required>
             </div>
             
@@ -102,7 +108,10 @@
               <label for="img">Image url</label>
                 <input type="text" id="imgUrl" class="form-control" ngModel="{{vehicleToAdd?.imgUrl}}" name="imgUrl">
             </div>      
-           
+            <div>
+                <input type="hidden" id="vinCode" class="form-control" ngModel="{{vehicleToAdd?.vinCode}}" name="vinCode">
+            </div>      
+          
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <button type="submit" class="btn btn-primary addNewButton " data-bs-dismiss="modal">Submit</button>
@@ -116,13 +125,11 @@
   </div>
 </div>
 <!-- UPDATE FORM END -->
-    </div>
-  </div>
-  <button type="button" class="btn btn-primary addNewButton" data-bs-toggle="modal" data-bs-target="#myModal">Add new</button>
+    
 
 
-  
 
+<!-- ADD NEW CAR MODAL BEGIN -->
 <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content bg-dark text-white">
@@ -143,17 +150,15 @@
                 <label for="year">Year:</label>
                 <input type="number" id="year" class="form-control" ngModel="{{vehicleToAdd?.yearOfMade}}" name="year" required>
               </div>
-              
               <div>
                 <label for="horsePower">Horse Power:</label>
                 <input type="number" id="horsePower" class="form-control" ngModel="{{vehicleToAdd?.horsePower}}" name="horsePower" required>
               </div>
-              
               <div>
                 <label for="vinCode">Vin Code:</label>
                 <input type="text" id="vinCode" class="form-control" ngModel="{{vehicleToAdd?.vinCode}}" name="vinCode" required>
               </div>
-              
+
               <div>
                 <label for="originCountry">Origin Country:</label>
                 <input type="text" id="originCountry" class="form-control" ngModel="{{vehicleToAdd?.originCountry}}" name="originCountry" required>
@@ -179,19 +184,15 @@
                   <input type="text" id="imgUrl" class="form-control" ngModel="{{vehicleToAdd?.imgUrl}}" name="imgUrl">
               </div>
               <div>
-                <label for="email">email</label>
-                  <input type="text" id="email" class="form-control" ngModel="{{vehicleToAdd?.email}}" name="email">
+                  <input type="hidden" id="email" class="form-control" ngModel="{{userEmail}}" name="email">
               </div>
-            
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <button type="submit" class="btn btn-primary addNewButton " data-bs-dismiss="modal">Submit</button>
               </div>
-              
       </form>
-      
-      </div>
-     
+      </div>  
     </div>
   </div>
 </div>
+<!-- ADD NEW CAR MODAL END -->
