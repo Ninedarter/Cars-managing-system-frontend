@@ -54,4 +54,15 @@ To set up the frontend locally, follow these steps:
 
 ## Usage
 
-Explore the Car Management System's features by interacting with the user interface.
+1. Register a User : Create your user account within the application.
+There is sample user with login  details :  
+ email: test@mail.com
+ password: test
+
+2. Add Cars: Start adding your vehicles to the system, providing all the required information.
+
+3. Track Expenses: Log maintenance and fuel expenses for each car, enabling accurate expense monitoring.
+
+4. View Charts: Explore the monthly expense charts to gain insights into your spending habits.
+
+5. Update Car Info: Periodically update car information as mileage, technical and insurance expiration dates to reflect the latest details accurately.
